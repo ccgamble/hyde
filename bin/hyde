@@ -1,8 +1,23 @@
 #!/usr/bin/env ruby
+require 'fileutils'
+require 'pry'
 
 args = ARGV
+
 puts "You ran Hyde with these arguments: #{args}"
 
-# ##############
-# Your code here
-# ##############
+FileUtils.mkdir_p '../lib/_output'
+FileUtils.mkdir_p '../lib/source'
+FileUtils.mkdir_p '../lib/source/css'
+FileUtils.mkdir_p '../lib/source/pages'
+FileUtils.mkdir_p '../lib/source/posts'
+FileUtils.mkdir_p '../lib/_output'
+
+
+# when this file is run the skeleton for the blog is made.
+# in order to create file we need commands that create files and directories.
+# "FILE.new stuff"
+# if folder exists --> throw an error. (conditional statement needed)
+# 
+#
+#
