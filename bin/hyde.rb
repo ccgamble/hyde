@@ -6,14 +6,14 @@ args = ARGV
 puts "You ran Hyde with these arguments: #{args}"
 
 FileUtils.mkdir_p "../../../../#{args[0]}/_output"
-# FileUtils.mkdir_p '../lib/source'
-# FileUtils.mkdir_p '../lib/source/css'
-# FileUtils.mkdir_p '../lib/source/pages'
-# FileUtils.mkdir_p '../lib/source/posts'
-# FileUtils.touch '../lib/source/css/main.css'
-# FileUtils.touch '../lib/source/pages/about.md'
-# FileUtils.touch '../lib/source/index.md'
-# FileUtils.touch '../lib/source/posts/2016-02-20-welcome-to-hyde.md'
+FileUtils.mkdir_p "../../../../#{args[0]}/source"
+FileUtils.mkdir_p "../../../../#{args[0]}/source/css"
+FileUtils.mkdir_p "../../../../#{args[0]}/source/pages"
+FileUtils.mkdir_p "../../../../#{args[0]}/source/posts"
+FileUtils.touch "../../../../#{args[0]}/source/css/main.css"
+FileUtils.touch "../../../../#{args[0]}/source/pages/about.md"
+FileUtils.touch "../../../../#{args[0]}/source/index.md"
+FileUtils.touch "../../../../#{args[0]}/source/posts/2016-02-20-welcome-to-hyde.md"
 
 
 # when this file is run the skeleton for the blog is made.
