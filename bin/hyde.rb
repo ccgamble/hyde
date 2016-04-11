@@ -5,6 +5,9 @@ args = ARGV
 
 puts "You ran Hyde with these arguments: #{args}"
 
+
+
+
 FileUtils.mkdir_p "../../../../#{args[0]}/_output"
 FileUtils.mkdir_p "../../../../#{args[0]}/source"
 FileUtils.mkdir_p "../../../../#{args[0]}/source/css"
