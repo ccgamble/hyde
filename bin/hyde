@@ -16,7 +16,7 @@ puts "You ran Hyde with these arguments: #{args}"
   FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/css/main.css"))
   FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/pages/about.md"))
   FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/index.md"))
-  FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/posts/2016-02-20-welcome-to-hyde.md"))
+  FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/posts/2016-02-20-welcome-to-hyde.md")) #need to change date to be dynamic
 
 
 
@@ -25,5 +25,6 @@ puts "You ran Hyde with these arguments: #{args}"
 # "FILE.new stuff"
 # if folder exists --> throw an error. (conditional statement needed)
 # DIR instead of FileUtils 'home'
+#
 #
 #
