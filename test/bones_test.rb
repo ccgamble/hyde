@@ -1,8 +1,8 @@
 require '../test/test_helper'
-require '../lib/setup'
+require '../lib/bones'
 
 
-class SetupTest < Minitest::Test
+class BonesTest < Minitest::Test
 
   def test_something_something
     assert_equal true, true
