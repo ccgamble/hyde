@@ -4,7 +4,7 @@ require '../lib/bones'
 
 class BonesTest < Minitest::Test
 
-  def test_something_something
+  def test_that_directory_is_created
     bones = Bones.new(ARGV)
     ARGV[0] = "test"
     bones.site_generator

@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # require '../lib/setup'
 require 'fileutils'
+require '../lib/bones'
+require '../lib/setup'
 
 
 args = ARGV
@@ -8,12 +10,13 @@ args = ARGV
 puts "You ran Hyde with these arguments: #{args}"
 
 
-
-# hyde = Setup.new(ARGV)
-# hyde.run_menu
-
+hyde = Setup.new
+hyde.run_menu
 
 
+# bones = Bones.new(ARGV)
+# ARGV[0] = "test"
+# bones.site_generator
 # when this file is run the skeleton for the blog is made.
 # in order to create file we need commands that create files and directories.
 # "FILE.new stuff"
