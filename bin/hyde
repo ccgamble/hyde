@@ -12,4 +12,5 @@ def kramdown(file_paths)
      markdown_files = FileList['file_path/*.markdown']
      Kramdown::Document.new(markdown_files).to_html
    end
+
 end

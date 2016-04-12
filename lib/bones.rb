@@ -16,7 +16,15 @@ class Bones
     FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/index.md"))
     FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/posts/2016-02-20-welcome-to-hyde.md"))
   end
+
+  def kramdown(file_paths)
+    file_paths.map do |file_path|
+      markdown_files = FileList['file_path/*.markdown']
+      Kramdown::Document.new(markdown_files).to_html
+    end
+  end
 end
+
 
 bones = Bones.new(ARGV)
 bones.site_generator
