@@ -1,8 +1,15 @@
-#!/usr/bin/env ruby
+# require '../lib/setup'
+require 'fileutils'
+
 
 args = ARGV
+
 puts "You ran Hyde with these arguments: #{args}"
 
-# ##############
-# Your code here
-# ##############
+
+def kramdown(file_paths)
+   file_paths.map do |file_path|
+     markdown_files = FileList['file_path/*.markdown']
+     Kramdown::Document.new(markdown_files).to_html
+   end
+end
