@@ -5,6 +5,13 @@ require '../lib/bones'
 class BonesTest < Minitest::Test
 
   def test_something_something
-    assert_equal true, true
+    bones = Bones.new(ARGV)
+    ARGV[0] = "test"
+    bones.site_generator
+    assert Dir.exist?("/Users/luigiaversano/test")
+  end
+
+  def teardown
+    FileUtils.rm_rf("/Users/luigiaversano/test")
   end
 end

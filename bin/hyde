@@ -7,18 +7,13 @@ args = ARGV
 
 puts "You ran Hyde with these arguments: #{args}"
 
-# FileUtils.mkdir_p (File.join(Dir.home, "/#{args[0]}/_output"))
-# FileUtils.mkdir_p (File.join(Dir.home, "/#{args[0]}/source"))
-# FileUtils.mkdir_p (File.join(Dir.home, "/#{args[0]}/source/css"))
-# FileUtils.mkdir_p (File.join(Dir.home, "/#{args[0]}/source/pages"))
-# FileUtils.mkdir_p (File.join(Dir.home, "/#{args[0]}/source/posts"))
-# FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/css/main.css"))
-# FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/pages/about.md"))
-# FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/index.md"))
-# FileUtils.touch (File.join(Dir.home, "/#{args[0]}/source/posts/2016-02-20-welcome-to-hyde.md"))
-#
+
+
 # hyde = Setup.new(ARGV)
 # hyde.run_menu
+
+
+
 # when this file is run the skeleton for the blog is made.
 # in order to create file we need commands that create files and directories.
 # "FILE.new stuff"
