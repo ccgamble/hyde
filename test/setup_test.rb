@@ -9,4 +9,11 @@ class SetupTest < Minitest::Test
     ARGV[0] = "test"
     assert_equal "ERROR", setup.run_menu
   end
+
+  def test_it_finds_markdown_file
+    setup = Setup.new
+    ARGV[1] = "test"
+    require 'pry'; binding.pry
+    assert Dir.exist?("/Users/luigiaversano/test/source/index.md")
+  end
 end

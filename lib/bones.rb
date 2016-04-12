@@ -1,8 +1,26 @@
 require 'fileutils'
+require 'find'
+
 class Bones
 
   def initialize(args)
     @args = ARGV
+  end
+
+  def build
+    #Looks in the source folder and copies the files
+    #and directories to the output folder. If an
+    #extension ends with .md, convert it to html
+    #FileUtils.cp --> unless ends with .md, if it does
+    #change it to .html
+    Find.find(File.join(Dir.home, "/#{@args[1]}")) do |file|
+      if file =~ /.*\.md$/
+      # file == Dir.glob("#{@args[1]}/source**/*.md")
+        puts "markdown"
+      else
+        puts "not markdown"
+      end
+    end
   end
 
   def site_generator
@@ -19,5 +37,8 @@ class Bones
 end
 
 
-# bones = Bones.new(ARGV)
-# bones.site_generator
+
+
+bones = Bones.new(ARGV)
+bones.site_generator
+bones.build
