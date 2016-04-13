@@ -1,5 +1,8 @@
 require 'fileutils'
 require 'find'
+require 'pry'
+require 'kramdown'
+
 
 class Bones
 
@@ -8,19 +11,40 @@ class Bones
   end
 
   def build
+    Find.find(File.join(Dir.home, "/#{@args[1]}/source")) do |file|
+      if file =~ /.*\.md$/
+        puts "markdown"
+      else
+        puts "Not markdown"
+        copy_files
+      end
+    end
     #Looks in the source folder and copies the files
     #and directories to the output folder. If an
     #extension ends with .md, convert it to html
     #FileUtils.cp --> unless ends with .md, if it does
     #change it to .html
-    Find.find(File.join(Dir.home, "/#{@args[1]}")) do |file|
-      if file =~ /.*\.md$/
-      # file == Dir.glob("#{@args[1]}/source**/*.md")
-        puts "markdown"
-      else
-        puts "not markdown"
-      end
-    end
+
+    # gather all .md files
+    # files = Dir.glob(Dir.home + "/#{@args[1]}/source/**/*.md")
+    # read each file
+    # files.each do |file|
+    #     variable = File.read(file)
+    #     convert using kramdown gem
+    # change path to _output folder
+    # file.sub!("source", "_output")
+    # change extension to .html
+    # File.write(file, postconverted kramdowntext)
+    # files = Dir.glob(Dir.home + "/#{@args[1]}/source/**/*.md")
+    # files.each do |file|
+    #   markdown_text = File.read(file)
+    #   html_text = Kramdown::Document.new(markdown_text)
+    #   file.sub!(Dir.home + "/#{@args[1]}/source/", Dir.home + "/#{@args[1]}/_output/")
+    # end
+  end
+
+  def copy_files
+    FileUtils.cp_r((File.join(Dir.home + "/#{@args[1]}/source.")), (File.join(Dir.home + "/#{@args[1]}/_output")))
   end
 
   def site_generator
@@ -35,8 +59,6 @@ class Bones
     FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/posts/2016-02-20-welcome-to-hyde.md"))
   end
 end
-
-
 
 
 bones = Bones.new(ARGV)
