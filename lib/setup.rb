@@ -10,20 +10,15 @@ class Setup
 
   end
 
-  def run_menu
+  def subcommand
     if ARGV[0] == "new"
       @bones.site_generator
     elsif ARGV[0] == "build"
       @bones.build
+    elsif
+      ARGV[0] == "post"
+      @bones.post
     else
       "ERROR"
     end
   end
-
-  def kramdown(file_paths)
-    file_paths.map do |source|
-      markdown_files = FileList['source/*.markdown']
-      Kramdown::Document.new(markdown_files).to_html
-    end
-  end
-end

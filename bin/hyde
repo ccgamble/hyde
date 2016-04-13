@@ -9,9 +9,8 @@ args = ARGV
 
 puts "You ran Hyde with these arguments: #{args}"
 
-
 hyde = Setup.new
-hyde.run_menu
+hyde.subcommand
 
 
 # bones = Bones.new(ARGV)
