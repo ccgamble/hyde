@@ -2,7 +2,7 @@ require 'fileutils'
 require 'find'
 require 'pry'
 require 'kramdown'
-
+require 'time'
 
 class Bones
 
@@ -29,6 +29,14 @@ class Bones
   end
 end
 
+  def post
+    today = Time.new.strftime('%Y-%m-%d-')
+    file_location = (File.join(Dir.home, "/#{@args[1]}/_output/posts/#{today}#{@args[2]}.md"))
+    FileUtils.touch((File.join(Dir.home, "/#{@args[1]}/_output/posts/#{today}#{@args[2]}.md")))
+    puts "Created a new post file at: #{file_location}"
+    File.write(file_location, "Yo, this is some sample stuff -- you need to blog some real stuff")
+  end
+
   def site_generator
     FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/_output"))
     FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source"))
@@ -46,6 +54,8 @@ end
 # bones = Bones.new(ARGV)
 # bones.site_generator
 # bones.build
+# bones.post
+
 
 
 #Looks in the source folder and copies the files

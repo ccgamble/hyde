@@ -22,3 +22,4 @@ class Setup
       "ERROR"
     end
   end
+end
