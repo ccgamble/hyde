@@ -17,6 +17,7 @@ class Bones
     change_md_to_html
     inject_layout_to_all_files
     puts "Ok you are ready to go!"
+    parse_tags
   end
 
   def copy_files
@@ -57,7 +58,7 @@ class Bones
     today = Time.new.strftime('%Y-%m-%d-')
     file_location = (root_path + "source/posts/#{today}#{@args[2]}.md")
     FileUtils.touch(root_path + "source/posts/#{today}#{@args[2]}.md")
-    File.write(file_location, "#Welcome to my blog.\n\n This is just sample text. \n\n You need to blog some real stuff here!")
+    File.write(file_location, File.read("../lib/example_post.md"))
     puts "You created a new blog post file at: #{file_location}"
   end
 
@@ -75,6 +76,14 @@ class Bones
     FileUtils.touch (root_path + "source/posts/2016-02-20-welcome-to-hyde.md")
     populate_default
     puts "You set up a new blog in the file path #{root_path}"
+  end
+
+  def parse_tags
+    today = Time.new.strftime('%Y-%m-%d-')
+    content = (root_path + "_output/posts/#{today}post2.html")
+    f = File.new(content)
+    require 'pry'; binding.pry
+    tags = f.readlines[4]
   end
 
   def root_path

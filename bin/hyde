@@ -6,4 +6,4 @@ require '../lib/setup'
 args = ARGV
 
 hyde = Setup.new
-hyde.subcommand
+hyde.dir_exists
