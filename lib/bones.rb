@@ -15,6 +15,7 @@ class Bones
   def build
     copy_files
     change_md_to_html
+    #need to inject here....
   end
 
   def copy_files
@@ -41,7 +42,7 @@ end
     file_location = (File.join(Dir.home, "/#{@args[1]}/source/posts/#{today}#{@args[2]}.md"))
     FileUtils.touch((File.join(Dir.home, "/#{@args[1]}/source/posts/#{today}#{@args[2]}.md")))
     puts "Created a new post file at: #{file_location}"
-    File.write(file_location, "Yo, this is some sample stuff, you need to blog some real stuff")
+    File.write(file_location, "#Yo, this is some sample stuff. \n\nYou need to blog some real stuff \n\n <%= 1 + 1 %>")
   end
 
   def site_generator

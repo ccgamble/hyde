@@ -15,8 +15,7 @@ class Setup
       @bones.site_generator
     elsif ARGV[0] == "build"
       @bones.build
-    elsif
-      ARGV[0] == "post"
+    elsif ARGV[0] == "post"
       @bones.post
     else
       "ERROR"
