@@ -11,13 +11,3 @@ puts "You ran Hyde with these arguments: #{args}"
 
 hyde = Setup.new
 hyde.subcommand
-
-
-# bones = Bones.new(ARGV)
-# ARGV[0] = "test"
-# bones.site_generator
-# when this file is run the skeleton for the blog is made.
-# in order to create file we need commands that create files and directories.
-# "FILE.new stuff"
-# if folder exists --> throw an error. (conditional statement needed)
-# DIR instead of FileUtils 'home'

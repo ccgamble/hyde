@@ -5,6 +5,7 @@ require 'kramdown'
 require 'time'
 require 'erb'
 
+
 class Bones
 
   def initialize(args)
@@ -14,7 +15,6 @@ class Bones
   def build
     copy_files
     change_md_to_html
-    inject
   end
 
   def copy_files
@@ -25,17 +25,15 @@ class Bones
     Dir.glob(Dir.home + "/#{@args[1]}/_output/**/*.md") do |file|
       html_converted = file.sub(".md",".html")
       files = File.read(file)
-      variable = Kramdown::Document.new(files).to_html
-      File.write(html_converted, variable)
+      kram = Kramdown::Document.new(files).to_html
+      inject(kram)
+      File.write(html_converted, kram)
       File.delete(file)
   end
 end
 
-  def inject
-      Dir.glob(Dir.home + "/#{@args[1]}/_output/**/*.html") do |something|
-        file_test = File.read(something)
-        ERB.new(file_test).result
-    end
+  def inject(kram)
+    ERB.new(File.read((Dir.home + "/#{@args[1]}/source/layouts/default.html.erb"))).result(binding)
   end
 
   def post
