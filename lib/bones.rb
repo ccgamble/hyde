@@ -16,7 +16,8 @@ class Bones
   def build
     copy_files
     change_md_to_html
-    inject
+    # inject
+    inject_layout_to_all_files
     puts "Ok you are ready to go!"
   end
 
@@ -34,10 +35,27 @@ class Bones
     end
   end
 
-  def inject
-    content = File.read(root_path + "_output/posts/2016-04-14-post1.html")
+  def inject(path)
+    content = File.read(path)
     erb = ERB.new(File.read(root_path + "source/layouts/default.html.erb")).result(binding)
-    File.write(root_path + "_output/posts/2016-04-14-post1.html", erb)
+    File.write(path, erb)
+    # content = File.read(root_path + "_output/posts/2016-04-14-post1.html")
+    # erb = ERB.new(File.read(root_path + "source/layouts/default.html.erb")).result(binding)
+    # File.write(root_path + "_output/posts/2016-04-14-post1.html", erb)
+  end
+
+  def find_html
+    html_files = []
+    Find.find(root_path + "/_output") do |path|
+      html_files << path if path =~ /.*\.html$/
+    end
+    html_files
+  end
+
+  def inject_layout_to_all_files
+    find_html.each do |path|
+      inject(path)
+    end
   end
 
   def post
