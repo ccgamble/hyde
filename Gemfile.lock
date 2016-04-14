@@ -13,8 +13,10 @@ GEM
       adamantium (~> 0.2.0)
       equalizer (~> 0.0.9)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     equalizer (0.0.11)
     ice_nine (0.11.1)
+    json (1.8.3)
     kramdown (1.9.0)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -36,6 +38,11 @@ GEM
       private_attr (~> 1.1)
       rainbow (~> 2.0)
       unparser (~> 0.2.2)
+    simplecov (0.11.2)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     slop (3.6.0)
     thread_safe (0.3.5)
     unparser (0.2.4)
@@ -57,6 +64,7 @@ DEPENDENCIES
   pry
   rake
   reek
+  simplecov
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

@@ -5,7 +5,6 @@ require 'kramdown'
 require 'time'
 require 'erb'
 
-
 class Bones
 
   def initialize(args)
@@ -16,7 +15,6 @@ class Bones
   def build
     copy_files
     change_md_to_html
-    # inject
     inject_layout_to_all_files
     puts "Ok you are ready to go!"
   end
@@ -39,9 +37,6 @@ class Bones
     content = File.read(path)
     erb = ERB.new(File.read(root_path + "source/layouts/default.html.erb")).result(binding)
     File.write(path, erb)
-    # content = File.read(root_path + "_output/posts/2016-04-14-post1.html")
-    # erb = ERB.new(File.read(root_path + "source/layouts/default.html.erb")).result(binding)
-    # File.write(root_path + "_output/posts/2016-04-14-post1.html", erb)
   end
 
   def find_html

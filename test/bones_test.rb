@@ -1,5 +1,6 @@
-require '../test/test_helper'
-require '../lib/bones'
+require './test/test_helper'
+require './lib/bones'
+
 
 class BonesTest < Minitest::Test
 
