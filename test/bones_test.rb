@@ -1,7 +1,6 @@
 require '../test/test_helper'
 require '../lib/bones'
 
-
 class BonesTest < Minitest::Test
 
   def test_that_directory_is_created
@@ -11,7 +10,7 @@ class BonesTest < Minitest::Test
     assert Dir.exist?("/Users/luigiaversano/test")
   end
 
-  # def teardown
-  #   FileUtils.rm_rf("/Users/luigiaversano/test")
-  # end
+  def teardown
+    FileUtils.rm_rf("/Users/luigiaversano/test")
+  end
 end

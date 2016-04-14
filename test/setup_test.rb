@@ -1,7 +1,6 @@
 require '../test/test_helper'
 require '../lib/setup'
 
-
 class SetupTest < Minitest::Test
 
   def test_it_throws_error_when_argv0_is_not_new

@@ -3,6 +3,7 @@ require 'find'
 require 'pry'
 require 'kramdown'
 require 'time'
+require 'erb'
 
 class Bones
 
@@ -13,6 +14,7 @@ class Bones
   def build
     copy_files
     change_md_to_html
+    inject
   end
 
   def copy_files
@@ -20,21 +22,28 @@ class Bones
   end
 
   def change_md_to_html
-    Dir.glob(Dir.home + "/#{@args[1]}/_output/**/*.md") do |f|
-      html_converted = f.sub(".md",".html")
-      files = File.read(f)
+    Dir.glob(Dir.home + "/#{@args[1]}/_output/**/*.md") do |file|
+      html_converted = file.sub(".md",".html")
+      files = File.read(file)
       variable = Kramdown::Document.new(files).to_html
       File.write(html_converted, variable)
-      File.delete(f)
+      File.delete(file)
   end
 end
 
+  def inject
+      Dir.glob(Dir.home + "/#{@args[1]}/_output/**/*.html") do |something|
+        file_test = File.read(something)
+        ERB.new(file_test).result
+    end
+  end
+
   def post
     today = Time.new.strftime('%Y-%m-%d-')
-    file_location = (File.join(Dir.home, "/#{@args[1]}/_output/posts/#{today}#{@args[2]}.md"))
-    FileUtils.touch((File.join(Dir.home, "/#{@args[1]}/_output/posts/#{today}#{@args[2]}.md")))
+    file_location = (File.join(Dir.home, "/#{@args[1]}/source/posts/#{today}#{@args[2]}.md"))
+    FileUtils.touch((File.join(Dir.home, "/#{@args[1]}/source/posts/#{today}#{@args[2]}.md")))
     puts "Created a new post file at: #{file_location}"
-    File.write(file_location, "Yo, this is some sample stuff -- you need to blog some real stuff")
+    File.write(file_location, "Yo, this is some sample stuff, you need to blog some real stuff")
   end
 
   def site_generator
@@ -42,53 +51,12 @@ end
     FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source"))
     FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source/css"))
     FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source/pages"))
+    FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source/layouts"))
     FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source/posts"))
     FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/css/main.css"))
+    FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/layouts/default.html.erb"))
     FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/pages/about.md"))
     FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/index.md"))
     FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/posts/2016-02-20-welcome-to-hyde.md"))
   end
 end
-
-
-# bones = Bones.new(ARGV)
-# bones.site_generator
-# bones.build
-# bones.post
-
-
-
-#Looks in the source folder and copies the files
-#and directories to the output folder. If an
-#extension ends with .md, convert it to html
-#FileUtils.cp --> unless ends with .md, if it does
-#change it to .html
-
-# gather all .md files
-# files = Dir.glob(Dir.home + "/#{@args[1]}/source/**/*.md")
-# read each file
-# files.each do |file|
-#     variable = File.read(file)
-#     convert using kramdown gem
-# change path to _output folder
-# file.sub!("source", "_output")
-# change extension to .html
-# File.write(file, postconverted kramdowntext)
-# files = Dir.glob(Dir.home + "/#{@args[1]}/source/**/*.md")
-# files.each do |file|
-#   markdown_text = File.read(file)
-#   html_text = Kramdown::Document.new(markdown_text)
-#   file.sub!(Dir.home + "/#{@args[1]}/source/", Dir.home + "/#{@args[1]}/_output/")
-# end
-# code for changing md to html file
-# gsub md to html
-# markdown_text = File.read(file)
-# html_text = Kramdown::Document.new(markdown_text).to_html
-
-
-# Dir.glob("/#{@args[1]}/_output/**/*.md") do |f|
-#   html_converted = f.gsub(".md",".html")
-# end
-
-#Dir.glob("/#{@args[1]}/_output/**/*.md")
-# FileUtils.mv f, "#{File.dirname(f)}/#{File.basename(f,'.*')}.html"
