@@ -1,0 +1,6 @@
+<html>
+  <head><title>Our Site</title></head>
+  <body>
+    <%= content_goes_here %>
+  </body>
+</html>

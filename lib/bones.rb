@@ -15,7 +15,7 @@ class Bones
   def build
     copy_files
     change_md_to_html
-    #need to inject here....
+    inject
   end
 
   def copy_files
@@ -27,14 +27,17 @@ class Bones
       html_converted = file.sub(".md",".html")
       files = File.read(file)
       kram = Kramdown::Document.new(files).to_html
-      inject(kram)
+      # inject
       File.write(html_converted, kram)
       File.delete(file)
   end
 end
 
-  def inject(kram)
-    ERB.new(File.read((Dir.home + "/#{@args[1]}/source/layouts/default.html.erb"))).result(binding)
+  def inject
+    content = File.read(Dir.home + "/#{@args[1]}/_output/posts/2016-04-14-post1.html")
+    #eenum?
+    erb = ERB.new(File.read(Dir.home + "/#{@args[1]}/source/layouts/default.html.erb")).result(binding)
+    File.write(Dir.home + "/#{@args[1]}/_output/posts/2016-04-14-post1.html", erb)
   end
 
   def post
@@ -42,7 +45,7 @@ end
     file_location = (File.join(Dir.home, "/#{@args[1]}/source/posts/#{today}#{@args[2]}.md"))
     FileUtils.touch((File.join(Dir.home, "/#{@args[1]}/source/posts/#{today}#{@args[2]}.md")))
     puts "Created a new post file at: #{file_location}"
-    File.write(file_location, "#Yo, this is some sample stuff. \n\nYou need to blog some real stuff \n\n <%= 1 + 1 %>")
+    File.write(file_location, "#Yo, this is some sample stuff. \n\n You need to blog some real stuff \n\n Yup")
   end
 
   def site_generator
@@ -57,5 +60,11 @@ end
     FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/pages/about.md"))
     FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/index.md"))
     FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/posts/2016-02-20-welcome-to-hyde.md"))
+    populate_default
+  end
+
+  def populate_default
+    populate = File.read("../lib/testdata.html.erb")
+    File.write(Dir.home + "/#{@args[1]}/source/layouts/default.html.erb", populate)
   end
 end
