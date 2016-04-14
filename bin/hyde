@@ -7,7 +7,7 @@ require '../lib/setup'
 
 args = ARGV
 
-puts "You ran Hyde with these arguments: #{args}"
+
 
 hyde = Setup.new
 hyde.subcommand

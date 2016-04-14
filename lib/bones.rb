@@ -10,6 +10,7 @@ class Bones
 
   def initialize(args)
     @args = ARGV
+    @root_path = root_path
   end
 
   def build
@@ -42,29 +43,34 @@ end
 
   def post
     today = Time.new.strftime('%Y-%m-%d-')
-    file_location = (File.join(Dir.home, "/#{@args[1]}/source/posts/#{today}#{@args[2]}.md"))
-    FileUtils.touch((File.join(Dir.home, "/#{@args[1]}/source/posts/#{today}#{@args[2]}.md")))
-    puts "Created a new post file at: #{file_location}"
+    file_location = (root_path + "source/posts/#{today}#{@args[2]}.md")
+    FileUtils.touch(root_path + "source/posts/#{today}#{@args[2]}.md")
+    puts "You created a new blog post file at: #{file_location}"
     File.write(file_location, "#Yo, this is some sample stuff. \n\n You need to blog some real stuff \n\n Yup")
   end
 
   def site_generator
-    FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/_output"))
-    FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source"))
-    FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source/css"))
-    FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source/pages"))
-    FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source/layouts"))
-    FileUtils.mkdir_p (File.join(Dir.home, "/#{@args[1]}/source/posts"))
-    FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/css/main.css"))
-    FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/layouts/default.html.erb"))
-    FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/pages/about.md"))
-    FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/index.md"))
-    FileUtils.touch (File.join(Dir.home, "/#{@args[1]}/source/posts/2016-02-20-welcome-to-hyde.md"))
+    FileUtils.mkdir_p (root_path + "_output")
+    FileUtils.mkdir_p (root_path + "source")
+    FileUtils.mkdir_p (root_path + "source/css")
+    FileUtils.mkdir_p (root_path + "source/pages")
+    FileUtils.mkdir_p (root_path + "source/layouts")
+    FileUtils.mkdir_p (root_path + "source/posts")
+    FileUtils.touch (root_path + "source/css/main.css")
+    FileUtils.touch (root_path + "source/layouts/default.html.erb")
+    FileUtils.touch (root_path + "source/pages/about.md")
+    FileUtils.touch (root_path + "source/index.md")
+    FileUtils.touch (root_path + "source/posts/2016-02-20-welcome-to-hyde.md")
     populate_default
+    puts "You set up a new blog in the file path #{root_path}"
+  end
+
+  def root_path
+    Dir.home + "/#{@args[1]}/"
   end
 
   def populate_default
     populate = File.read("../lib/testdata.html.erb")
-    File.write(Dir.home + "/#{@args[1]}/source/layouts/default.html.erb", populate)
+    File.write(root_path + "source/layouts/default.html.erb", populate)
   end
 end
