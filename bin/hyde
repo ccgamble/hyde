@@ -1,13 +1,9 @@
 #!/usr/bin/env ruby
-# require '../lib/setup'
 require 'fileutils'
 require '../lib/bones'
 require '../lib/setup'
 
-
 args = ARGV
-
-
 
 hyde = Setup.new
 hyde.subcommand

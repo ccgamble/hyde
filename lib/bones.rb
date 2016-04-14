@@ -17,36 +17,35 @@ class Bones
     copy_files
     change_md_to_html
     inject
+    puts "Ok you are ready to go!"
   end
 
   def copy_files
-    FileUtils.cp_r((File.join(Dir.home + "/#{@args[1]}/source/.")), (File.join(Dir.home + "/#{@args[1]}/_output")))
+    FileUtils.cp_r((root_path + "source/."), (root_path + "_output"))
   end
 
   def change_md_to_html
-    Dir.glob(Dir.home + "/#{@args[1]}/_output/**/*.md") do |file|
+    Dir.glob(root_path + "_output/**/*.md") do |file|
       html_converted = file.sub(".md",".html")
       files = File.read(file)
       kram = Kramdown::Document.new(files).to_html
-      # inject
       File.write(html_converted, kram)
       File.delete(file)
+    end
   end
-end
 
   def inject
-    content = File.read(Dir.home + "/#{@args[1]}/_output/posts/2016-04-14-post1.html")
-    #eenum?
-    erb = ERB.new(File.read(Dir.home + "/#{@args[1]}/source/layouts/default.html.erb")).result(binding)
-    File.write(Dir.home + "/#{@args[1]}/_output/posts/2016-04-14-post1.html", erb)
+    content = File.read(root_path + "_output/posts/2016-04-14-post1.html")
+    erb = ERB.new(File.read(root_path + "source/layouts/default.html.erb")).result(binding)
+    File.write(root_path + "_output/posts/2016-04-14-post1.html", erb)
   end
 
   def post
     today = Time.new.strftime('%Y-%m-%d-')
     file_location = (root_path + "source/posts/#{today}#{@args[2]}.md")
     FileUtils.touch(root_path + "source/posts/#{today}#{@args[2]}.md")
+    File.write(file_location, "#Welcome to my blog.\n\n This is just sample text. \n\n You need to blog some real stuff here!")
     puts "You created a new blog post file at: #{file_location}"
-    File.write(file_location, "#Yo, this is some sample stuff. \n\n You need to blog some real stuff \n\n Yup")
   end
 
   def site_generator

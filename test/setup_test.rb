@@ -1,18 +1,12 @@
 require '../test/test_helper'
 require '../lib/setup'
+require '../lib/bones'
 
 class SetupTest < Minitest::Test
 
-  def test_it_throws_error_when_argv0_is_not_new
+  def test_subcommand_outputs_error_when_argv0_is_not_a_valid_command
     setup = Setup.new
     ARGV[0] = "test"
-    assert_equal "ERROR", setup.run_menu
-  end
-
-  def test_it_finds_markdown_file
-    setup = Setup.new
-    ARGV[1] = "test"
-    require 'pry'; binding.pry
-    assert Dir.exist?("/Users/luigiaversano/test/source/index.md")
+    assert_equal "ERROR", setup.subcommand
   end
 end

@@ -6,10 +6,6 @@ class Setup
     @bones = Bones.new(ARGV)
   end
 
-  def does_dir_exist
-
-  end
-
   def subcommand
     if ARGV[0] == "new"
       @bones.site_generator
