@@ -10,6 +10,7 @@ class Bones
   def initialize(args)
     @args = ARGV
     @root_path = root_path
+    @tag_hash = {}
   end
 
   def build
@@ -18,6 +19,8 @@ class Bones
     inject_layout_to_all_files
     puts "Ok you are ready to go!"
     parse_tags
+    reformat_tags_to_snakecase
+    create_tag_page
   end
 
   def copy_files
@@ -48,10 +51,40 @@ class Bones
     html_files
   end
 
+  def parse_tags
+    formatted = []
+    md_files = Dir[root_path + "source/posts/*"]
+    md_files.map do |file|
+      reading_lines(file)
+      if reading_lines(file).length != 0
+        tags = reading_lines(file)[1][6..-1].chomp.split(", ")
+        tags.each do |tag|
+          formatted << tag.gsub(",","")
+        end
+      end
+    end
+    @tag_hash["keys:"] = formatted
+  end
+
+  def reformat_tags_to_snakecase
+    tags = @tag_hash.values
+    @reformat = tags.map do |keys|
+      @reformatted = keys.map do |tag|
+        tag.downcase.gsub(" ", "_")
+      end
+    end
+    @reformatted
+  end
+
   def inject_layout_to_all_files
     find_html.each do |path|
       inject(path)
     end
+  end
+
+  def reading_lines(file)
+    File.open(file)
+    File.readlines(file)
   end
 
   def post
@@ -64,6 +97,7 @@ class Bones
 
   def site_generator
     FileUtils.mkdir_p (root_path + "_output")
+    FileUtils.mkdir_p (root_path + "_output/tags")
     FileUtils.mkdir_p (root_path + "source")
     FileUtils.mkdir_p (root_path + "source/css")
     FileUtils.mkdir_p (root_path + "source/pages")
@@ -78,14 +112,6 @@ class Bones
     puts "You set up a new blog in the file path #{root_path}"
   end
 
-  def parse_tags
-    today = Time.new.strftime('%Y-%m-%d-')
-    content = (root_path + "_output/posts/#{today}post2.html")
-    f = File.new(content)
-    require 'pry'; binding.pry
-    tags = f.readlines[4]
-  end
-
   def root_path
     Dir.home + "/#{@args[1]}/"
   end
@@ -93,5 +119,12 @@ class Bones
   def populate_default
     populate = File.read("../lib/testdata.html.erb")
     File.write(root_path + "source/layouts/default.html.erb", populate)
+  end
+
+  def create_tag_page
+    tag_page = @reformatted.map do |new_files|
+      FileUtils.touch(root_path + "_output/tags/" + new_files + ".html")
+      
+    end
   end
 end
