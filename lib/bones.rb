@@ -17,10 +17,11 @@ class Bones
     copy_files
     change_md_to_html
     inject_layout_to_all_files
-    puts "Ok you are ready to go!"
     parse_tags
     reformat_tags_to_snakecase
     create_tag_page
+    write_tags_to_page
+    puts "Ok you are ready to go!"
   end
 
   def copy_files
@@ -53,8 +54,8 @@ class Bones
 
   def parse_tags
     formatted = []
-    md_files = Dir[root_path + "source/posts/*"]
-    md_files.map do |file|
+    @md_files = Dir[root_path + "source/posts/*"]
+    @md_files.map do |file|
       reading_lines(file)
       if reading_lines(file).length != 0
         tags = reading_lines(file)[1][6..-1].chomp.split(", ")
@@ -122,9 +123,19 @@ class Bones
   end
 
   def create_tag_page
-    tag_page = @reformatted.map do |new_files|
-      FileUtils.touch(root_path + "_output/tags/" + new_files + ".html")
-      
+    @tag_page = @reformatted.each do |new_files|
+      FileUtils.touch(root_path + "_output/tags/" + new_files + ".html").uniq
     end
   end
+
+  def post_files_from_md_to_html
+    @converted_posts = @md_files.change_md_to_html
+  end
+
+  def write_tags_to_page
+    today = Time.new.strftime('%Y-%m-%d-')
+      @reformatted.each do |tag|
+          File.write(root_path + "_output/tags/#{tag}.html", root_path + "_output/posts/#{today}#{@args[2]}.html")
+      end
+    end
 end

@@ -18,7 +18,7 @@ class SetupTest < Minitest::Test
     assert Dir.exist?(Dir.home + "/test")
   end
 
-  def test_subcommand_works_with_build##
+  def test_subcommand_works_with_build
     setup = Setup.new
     ARGV[0] = "build"
     ARGV[1] = "test"
@@ -26,7 +26,7 @@ class SetupTest < Minitest::Test
     assert Dir.exist?(Dir.home + "/test/_output/css")
   end
 
-  def test_subcommand_works_with_post##
+  def test_subcommand_works_with_post
     today = Time.new.strftime('%Y-%m-%d-')
     setup = Setup.new
     ARGV[0] = "post"
@@ -36,7 +36,7 @@ class SetupTest < Minitest::Test
     assert File.exist?(Dir.home + "/test/source/posts/#{today}post1.md")
   end
 
-  def test_errors_show_when_trying_to_create_same_blog##
+  def test_errors_show_when_trying_to_create_same_blog
     setup = Setup.new
     ARGV[0] = "post"
     ARGV[1] = "test"
