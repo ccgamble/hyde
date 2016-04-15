@@ -1,16 +1,19 @@
-require '../lib/bones'
+require "../lib/bones"
 require 'kramdown'
 require 'fileutils'
 
 class Setup
+  attr_reader :args
+
   def initialize
     @bones = Bones.new(ARGV)
+    @args = ARGV
   end
 
   def dir_exists
     existance = (Dir.home + "/#{ARGV[1]}")
     if Dir.exist?(existance) == true && "#{ARGV[0]}" == "new"
-        puts "Error, File path already exists"
+      "Error, file path already exists"
     else
       subcommand
     end
@@ -24,7 +27,7 @@ class Setup
     elsif ARGV[0] == "post"
       @bones.post
     elsif ARGV[0] == "watchfs"
-      @bones.watcher
+      @bones.listener
     else
       "ERROR"
     end
