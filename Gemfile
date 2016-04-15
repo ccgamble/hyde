@@ -6,3 +6,5 @@ gem "kramdown"
 gem 'cane'
 gem 'reek'
 gem 'rake'
+gem 'simplecov'
+gem 'filewatcher'

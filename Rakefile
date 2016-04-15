@@ -1,3 +1,14 @@
+require 'rake'
+require 'rake/testtask'
+require './test/test_helper'
+
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/*_test.rb']
+end
+
+task default: :test
+
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
   task :lines do

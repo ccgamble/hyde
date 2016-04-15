@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
+require 'fileutils'
+require '../lib/bones'
+require '../lib/setup'
 
 args = ARGV
-puts "You ran Hyde with these arguments: #{args}"
 
-# ##############
-# Your code here
-# ##############
+hyde = Setup.new
+hyde.dir_exists
