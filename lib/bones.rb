@@ -4,6 +4,7 @@ require 'pry'
 require 'kramdown'
 require 'time'
 require 'erb'
+require 'filewatcher'
 
 class Bones
 
@@ -138,4 +139,19 @@ class Bones
           File.write(root_path + "_output/tags/#{tag}.html", root_path + "_output/posts/#{today}#{@args[2]}.html")
       end
     end
+
+    def watcher
+      FileWatcher.new([root_path + "source/**"]).watch() do |file|
+        binding.pry
+        if(event == :changed)
+            puts "File updated: " + file
+          end
+          if(event == :delete)
+            puts "File deleted: " + file
+          end
+          if(event == :new)
+            puts "Added file: " + file
+          end
+        end
+      end
 end

@@ -10,7 +10,7 @@ class Setup
   def dir_exists
     existance = (Dir.home + "/#{ARGV[1]}")
     if Dir.exist?(existance) == true && "#{ARGV[0]}" == "new"
-        "Error, File path already exists"
+        puts "Error, File path already exists"
     else
       subcommand
     end
@@ -23,6 +23,8 @@ class Setup
       @bones.build
     elsif ARGV[0] == "post"
       @bones.post
+    elsif ARGV[0] == "watchfs"
+      @bones.watcher
     else
       "ERROR"
     end
